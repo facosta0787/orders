@@ -1,0 +1,25 @@
+{
+  "name": "pedidos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "material-ui": "^0.17.1",
+    "next": "^2.0.1",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-lazy-load": "^3.0.11",
+    "react-styled-flexboxgrid": "^1.0.2",
+    "react-tap-event-plugin": "^2.0.1",
+    "styled-components": "^1.4.4"
+  }
+}
