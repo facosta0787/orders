@@ -1,79 +1,93 @@
 import React, { Component } from 'react';
 import fetch from  'isomorphic-fetch';
 import styled from 'styled-components';
-import ToolBar from '../app/components/tool-bar';
-import Cargando from '../app/components/loading';
-import ClienteMaterial from '../app/components/cliente';
+import Header from '../app/components/Header';
+import Cargando from '../app/components/Loading';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import ClienteComponent from '../app/components/Cliente';
 
 class Home extends Component{
 
- constructor(props) {
-  super(props);
-  try { injectTapEventPlugin(); } catch (e) {};
-  this.state = {
-   data:[],
-   loading:false
-  };
- }
+    constructor(props) {
+        super(props);
+        try { injectTapEventPlugin(); } catch (e) {};
+        this.state = {
+            data:[],
+            loading:false
+        };
+    }
 
- static async getInitialProps(){
-  const URL = `http://vmr.tarrao.co/data/syncclientes/05`;
-  const response = await fetch(URL);
-  const data = await response.json();
-  return data;
- }
+    static async getInitialProps(){
+        const URL = `http://vmr.tarrao.co/data/syncclientes/05`;
+        const response = await fetch(URL);
+        const data = await response.json();
+        return data;
+    }
 
- componentDidMount() {
+    componentDidMount() {
 
-  return null;
- }
+        return null;
+    }
 
- render(){
-  if(this.props.Clientes.length != 0){
-   return(
-    <div>
-        <Wrapper>
-            <ToolBar/>
-        </Wrapper>
+    render(){
+        if(this.props.Clientes.length != 0){
+            return(
+                <div>
+                    <Wrapper>
+                        <Header />
+                    </Wrapper>
+                    <Content>
+                        <ul>{this.props.Clientes.map(
+                            cliente => {
+                                return(
+                                    <ClienteComponent {...cliente}/>
+                                );
+                            }
+                        )}
+                        </ul>
+                    </Content>
+                </div>
+            );
+        }else {
+            return (
+                <div>
+                    <Wrapper>
+                        <Header />
+                    </Wrapper>
+                    <Spinner>
+                        <Cargando />
+                    </Spinner>
+                </div>
+            );
 
-        <UlList>{this.props.Clientes.map(
-         cliente => {
-          return(
-           <ClienteMaterial {...cliente}/>
-          );
-         }
-        )}</UlList>
-    </div>
-   );
-  }else {
-   return (
-    <Spinner>
-        <Cargando />
-    </Spinner>
-   );
-
-  }
- }
+        }
+    }
 
 
 }
 export default Home;
 
-const Wrapper = styled.section`
-  position: fixed;
-  /*bottom: 0;*/
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 1;
+const Wrapper = styled.div`
+    position: fixed;
+    /*bottom: 0;*/
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 1;
+`;
+
+const Content = styled.div`
+    overflow: auto;
+    margin-top:64px;
+    padding-top: 5px;
+    height: calc(100vh - 74px);
+    /*border: 1px solid gray;*/
 `;
 
 const Titulo = styled.h3`
-font-family: 'Roboto', sans-serif;
-text-align: center;
-margin:auto;
-
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    margin:auto;
 `
 const Spinner = styled.div`
 position: absolute;
