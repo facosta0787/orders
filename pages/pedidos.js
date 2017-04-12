@@ -36,13 +36,14 @@ class Pedidos extends Component{
                 <Content>
                     <Contoles>
                         <MuiThemeProvider>
-                            <RaisedButton label="Volver" backgroundColor="#8BC34A" onTouchTap={this.handleClick} style={}/>
+                            <RaisedButton label="Volver" backgroundColor="#8BC34A" onTouchTap={this.handleClick} />
                         </MuiThemeProvider>
                     </Contoles>
+                    <ClearFix />
                     <UList>{this.props.pedidos.map(
                         pedido => {
                             return(
-                                <PedidosComponent {...pedido}/>
+                                <PedidosComponent key={pedido.numero} {...pedido}/>
                             );
                         }
                     )}
@@ -74,9 +75,13 @@ const Content = styled.div`
 `;
 
 const Contoles = styled.div`
-    margin-left: calc(100% - 100px);
+    float: right;
 `;
 
 const UList = styled.ul`
     margin-top: 15px;
+`;
+
+const ClearFix = styled.div`
+    clear: both;
 `;

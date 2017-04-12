@@ -3,7 +3,7 @@ import Router from 'next/router';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import { connect } from 'react-redux';
 
 class ClienteMaterialize extends Component{
  constructor(props){
@@ -11,12 +11,17 @@ class ClienteMaterialize extends Component{
 
  }
  handleClick = event =>{
-
+  this.props.dispatch({
+   type:'SET_LOADING',
+   payload:{
+    loading:true
+   }
+  });
   Router.push({
    pathname: '/pedidos',
    query: { codigo: this.props.NitCliente,
-    suc: this.props.Sucursal,
-   }
+            suc: this.props.Sucursal,
+          }
   });
 
  };
@@ -46,4 +51,4 @@ class ClienteMaterialize extends Component{
   );
  }
 }
-export default ClienteMaterialize;
+export default connect(null)(ClienteMaterialize);
