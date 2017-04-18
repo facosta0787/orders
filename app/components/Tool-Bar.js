@@ -11,7 +11,7 @@ class ToolBar extends  Component{
  render(){
   return(
    <MuiThemeProvider>
-       <AppBar title="Pedidos - React.JS" />
+       <AppBar title="Pedidos - React.JS" style={{backgroundColor:'#00305A'}}/>
    </MuiThemeProvider>
   );
  }

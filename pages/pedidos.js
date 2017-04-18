@@ -3,7 +3,6 @@ import Router from 'next/router';
 import styled from 'styled-components';
 import Header from '../app/components/Header';
 import PedidosComponent from '../app/components/Pedido';
-
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -16,7 +15,7 @@ class Pedidos extends Component{
     }
 
     handleClick= event =>{
-        Router.push('/');
+     Router.push('/');
     };
 
     static async getInitialProps({query}){
@@ -36,7 +35,7 @@ class Pedidos extends Component{
                 <Content>
                     <Contoles>
                         <MuiThemeProvider>
-                            <RaisedButton label="Volver" backgroundColor="#8BC34A" onTouchTap={this.handleClick} />
+                            <RaisedButton label="Volver" onTouchTap={this.handleClick} />
                         </MuiThemeProvider>
                     </Contoles>
                     <ClearFix />
@@ -76,6 +75,7 @@ const Content = styled.div`
 
 const Contoles = styled.div`
     float: right;
+    margin-right: 25px;
 `;
 
 const UList = styled.ul`

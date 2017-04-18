@@ -10,7 +10,8 @@ import { createStore } from 'redux';
 import reducer from '../reducers/reducers';
 
 const data = {
- loading: false
+ loading: true,
+ visible: 'loading'
 };
 
 const makeStore = function(initialState = data){
@@ -24,8 +25,9 @@ class Home extends Component{
   try { injectTapEventPlugin(); } catch (e) {};
   this.state = {
    data:[],
-   loading:true
-  };
+   loading: true,
+   visible: 'loading',
+   };
  }
 
  static async getInitialProps(){
@@ -38,17 +40,25 @@ class Home extends Component{
   const data = await response.json();
   this.setState({data:data});
   this.setState({loading:false});
+
+  this.props.dispatch({
+   type:'SET_VISIBLE_SPINNER',
+   payload:{
+    visible:'hide',
+   }
+  });
+
  }
 
  render(){
-  if(this.state.loading == false){
-   return(
-
-    <div>
-     <Wrapper>
-      <Header />
-     </Wrapper>
-     <Content>
+  return(
+   <div>
+    <Wrapper>
+     <Header />
+    </Wrapper>
+    <Content>
+     <Cargando />
+     {!this.state.loading &&
       <ul>{this.state.data.Clientes.map(
        cliente => {
         return(
@@ -57,26 +67,12 @@ class Home extends Component{
        }
       )}
       </ul>
-     </Content>
-    </div>
+     }
+    </Content>
+   </div>
 
-   );
-  }else {
-   return (
-    <div>
-     <Wrapper>
-      <Header />
-     </Wrapper>
-     <Spinner>
-      <Cargando />
-     </Spinner>
-    </div>
-   );
-
-  }
+  );
  }
-
-
 }
 export default withRedux(makeStore)(Home);
 
@@ -96,18 +92,10 @@ const Content = styled.div`
  height: calc(100vh - 74px);
  /*border: 1px solid gray;*/
 `;
-
 const Titulo = styled.h3`
  font-family: 'Roboto', sans-serif;
  text-align: center;
  margin:auto;
-`
-const Spinner = styled.div`
- position: absolute;
- left: calc(50% - 50px);
- top: 50%;
- padding: 0;
- text-align: center;
 `
 const UlList = styled.ul`
  padding: 0px;

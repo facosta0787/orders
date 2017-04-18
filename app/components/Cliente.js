@@ -12,9 +12,9 @@ class ClienteMaterialize extends Component{
  }
  handleClick = event =>{
   this.props.dispatch({
-   type:'SET_LOADING',
+   type:'SET_VISIBLE_SPINNER',
    payload:{
-    loading:true
+    visible:'loading',
    }
   });
   Router.push({
@@ -23,32 +23,37 @@ class ClienteMaterialize extends Component{
             suc: this.props.Sucursal,
           }
   });
-
  };
 
  render(){
-  //console.log(this.state);
-  return(
-   <div>
-    <MuiThemeProvider>
-     <Card>
-      <CardHeader
-       title={this.props.RazonSocial.replace(/\b\w/g, l => l.toUpperCase())}
-       subtitle={this.props.NitCliente.concat(' ').concat(this.props.Sucursal)}
-       actAsExpander={true}
-       showExpandableButton={true}
-      />
-      <CardActions>
-       <FlatButton label="Pedidos" primary={true} onTouchTap={this.handleClick}/>
-      </CardActions>
-      <CardText expandable={true}>
-       {this.props.Direccion}
-      </CardText>
-     </Card>
-    </MuiThemeProvider>
-    <br />
-   </div>
-  );
+   return(
+    <div>
+     <MuiThemeProvider>
+      <Card>
+       <CardHeader
+        title={this.props.RazonSocial.replace(/\b\w/g, l => l.toUpperCase())}
+        subtitle={this.props.NitCliente.concat(' ').concat(this.props.Sucursal)}
+        actAsExpander={true}
+        showExpandableButton={true}
+       />
+       <CardActions>
+        <FlatButton label="Pedidos" primary={true} onTouchTap={this.handleClick} style={{color:'#00305A'}}/>
+       </CardActions>
+       <CardText expandable={true}>
+        {this.props.Direccion}
+       </CardText>
+      </Card>
+     </MuiThemeProvider>
+     <br />
+    </div>
+   );
  }
 }
-export default connect(null)(ClienteMaterialize);
+export default connect(mapStateToProps)(ClienteMaterialize);
+
+function mapStateToProps(state){
+ return{
+  loading: state.loading,
+  visible: state.visible,
+ }
+}
